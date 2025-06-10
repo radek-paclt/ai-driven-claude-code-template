@@ -1,0 +1,97 @@
+@keyframes foodAppear {
+  0% { 
+    transform: scale(0) rotate(180deg); 
+    opacity: 0; 
+  }
+  50% { 
+    transform: scale(1.2) rotate(90deg); 
+    opacity: 0.8; 
+  }
+  100% { 
+    transform: scale(1) rotate(0deg); 
+    opacity: 1; 
+  }
+}
+
+@keyframes foodPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    box-shadow: 
+      var(--shadow-sm),
+      0 0 10px rgba(255, 107, 107, 0.4),
+      inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  }
+  50% { 
+    transform: scale(1.05); 
+    box-shadow: 
+      var(--shadow-md),
+      0 0 20px rgba(255, 107, 107, 0.6),
+      inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% { 
+    opacity: 0.3; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.5); 
+  }
+}
+
+@keyframes foodEaten {
+  0% { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: scale(1.5); 
+    opacity: 0.8; 
+  }
+  100% { 
+    transform: scale(0); 
+    opacity: 0; 
+  }
+}
+
+.food-item:hover {
+  transform: scale(1.1);
+}
+
+.food-item.eating {
+  animation: foodEaten 0.3s ease-out forwards;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .food-item {
+    animation: none !important;
+  }
+  
+  @keyframes foodPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+  
+  .food-item {
+    animation: foodPulse 3s ease-in-out infinite;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .food-item {
+    border-width: 3px;
+    box-shadow: none !important;
+  }
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .food-item {
+  box-shadow: 
+    var(--shadow-md),
+    0 0 15px rgba(255, 107, 107, 0.5),
+    inset 0 2px 4px rgba(255, 255, 255, 0.2);
+}

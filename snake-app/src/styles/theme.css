@@ -1,0 +1,341 @@
+/* ==========================================================================
+   Snake Game - Modern Theme System
+   ========================================================================== */
+
+/* Theme CSS Custom Properties */
+:root {
+  /* Color Palette - Light Theme (Default) */
+  --color-primary: #4CAF50;
+  --color-primary-dark: #388E3C;
+  --color-primary-light: #66BB6A;
+  --color-secondary: #2196F3;
+  --color-secondary-dark: #1976D2;
+  --color-secondary-light: #42A5F5;
+  --color-accent: #FF6B6B;
+  --color-accent-dark: #F44336;
+  --color-warning: #FFA726;
+  --color-warning-dark: #FF8F00;
+  --color-success: #66BB6A;
+  --color-danger: #FF5252;
+  
+  /* Backgrounds */
+  --bg-primary: #FAFAFA;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F5F5F5;
+  --bg-overlay: rgba(0, 0, 0, 0.8);
+  --bg-game-board: #FFFFFF;
+  --bg-game-board-pattern: rgba(0, 0, 0, 0.02);
+  
+  /* Text Colors */
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --text-tertiary: #9E9E9E;
+  --text-inverse: #FFFFFF;
+  --text-accent: var(--color-primary);
+  
+  /* Borders */
+  --border-primary: #E0E0E0;
+  --border-secondary: #BDBDBD;
+  --border-focus: var(--color-primary);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+  
+  /* Spacing Scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+  --space-4xl: 48px;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 50%;
+  
+  /* Typography */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 32px;
+  
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* Animation Timing */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+  
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  
+  /* Z-Index Scale */
+  --z-below: -1;
+  --z-normal: 1;
+  --z-tooltip: 10;
+  --z-fixed: 100;
+  --z-modal: 1000;
+  --z-popover: 2000;
+  
+  /* Game Specific */
+  --game-cell-size: 20px;
+  --game-board-border: 3px;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  /* Color adjustments for dark theme */
+  --color-secondary: #42A5F5;
+  --color-warning: #FFB74D;
+  --color-success: #81C784;
+  
+  /* Backgrounds */
+  --bg-primary: #121212;
+  --bg-secondary: #1E1E1E;
+  --bg-tertiary: #2D2D2D;
+  --bg-overlay: rgba(0, 0, 0, 0.9);
+  --bg-game-board: #1a1a1a;
+  --bg-game-board-pattern: rgba(255, 255, 255, 0.02);
+  
+  /* Text Colors */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B3B3B3;
+  --text-tertiary: #757575;
+  --text-inverse: #212121;
+  
+  /* Borders */
+  --border-primary: #333333;
+  --border-secondary: #424242;
+  
+  /* Enhanced shadows for dark theme */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+:root {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--color-primary);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--color-primary), 0 0 30px var(--color-primary);
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fadeIn var(--duration-normal) var(--ease-out);
+}
+
+.animate-slide-in-up {
+  animation: slideInUp var(--duration-normal) var(--ease-out);
+}
+
+.animate-slide-in-down {
+  animation: slideInDown var(--duration-normal) var(--ease-out);
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--duration-normal) var(--ease-out);
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Transition Classes */
+.transition-all {
+  transition: all var(--duration-normal) var(--ease-in-out);
+}
+
+.transition-colors {
+  transition: color var(--duration-normal) var(--ease-in-out),
+              background-color var(--duration-normal) var(--ease-in-out),
+              border-color var(--duration-normal) var(--ease-in-out);
+}
+
+.transition-transform {
+  transition: transform var(--duration-normal) var(--ease-in-out);
+}
+
+/* Hover Effects */
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px var(--color-primary);
+}
+
+/* Focus Styles */
+.focus-outline:focus {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.focus-ring:focus {
+  box-shadow: 0 0 0 3px rgba(var(--color-primary), 0.1);
+}
+
+/* ==========================================================================
+   Reduced Motion Support
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-pulse,
+  .animate-glow {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   High Contrast Mode Support
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  :root {
+    --border-primary: #000000;
+    --border-secondary: #000000;
+    --text-secondary: var(--text-primary);
+  }
+  
+  [data-theme="dark"] {
+    --border-primary: #FFFFFF;
+    --border-secondary: #FFFFFF;
+  }
+}
+
+/* ==========================================================================
+   Mobile-First Responsive Typography
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  :root {
+    --font-size-3xl: 28px;
+    --font-size-2xl: 20px;
+    --font-size-xl: 18px;
+    --space-4xl: 32px;
+    --space-3xl: 24px;
+  }
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  [data-theme="dark"] {
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #FFFFFF;
+    --text-primary: #000000;
+    --text-secondary: #000000;
+  }
+}

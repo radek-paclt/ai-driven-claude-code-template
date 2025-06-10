@@ -1,0 +1,614 @@
+/* ==========================================================================
+   GameBoard Component Styles
+   ========================================================================== */
+
+.game-container {
+  text-align: center;
+  padding: var(--space-xl);
+  position: relative;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Control Panel Styles
+   ========================================================================== */
+
+.control-panel {
+  position: fixed;
+  right: var(--space-xl);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  z-index: var(--z-fixed);
+  max-width: 160px;
+}
+
+.control-button {
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-in-out);
+  min-width: 140px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.control-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width var(--duration-normal), height var(--duration-normal);
+}
+
+.control-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.control-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.control-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.control-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+}
+
+/* Button Variants */
+.control-button.primary {
+  background-color: var(--color-primary);
+  color: var(--text-inverse);
+}
+
+.control-button.primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.control-button.secondary {
+  background-color: var(--color-secondary);
+  color: var(--text-inverse);
+}
+
+.control-button.secondary:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.control-button.danger {
+  background-color: var(--color-accent);
+  color: var(--text-inverse);
+}
+
+.control-button.danger:hover {
+  background-color: var(--color-accent-dark);
+}
+
+.control-button.warning {
+  background-color: var(--color-warning);
+  color: var(--text-primary);
+}
+
+.control-button.warning:hover {
+  background-color: var(--color-warning-dark);
+}
+
+/* ==========================================================================
+   Score and Status Display
+   ========================================================================== */
+
+.game-stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-3xl);
+  margin-bottom: var(--space-2xl);
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-lg);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-sm);
+  min-width: 120px;
+  transition: all var(--duration-normal) var(--ease-in-out);
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.stat-value.score {
+  color: var(--color-primary);
+}
+
+.stat-value.speed {
+  color: var(--color-accent);
+}
+
+.speed-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.speed-boost-icon {
+  font-size: var(--font-size-lg);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   Game Board Styles
+   ========================================================================== */
+
+.game-board {
+  position: relative;
+  background-color: var(--bg-game-board);
+  border: var(--game-board-border) solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  margin: 0 auto var(--space-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--duration-normal) var(--ease-in-out);
+  
+  /* Grid pattern background */
+  background-image: 
+    linear-gradient(var(--bg-game-board-pattern) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-game-board-pattern) 1px, transparent 1px);
+  background-size: var(--game-cell-size) var(--game-cell-size);
+}
+
+.game-board:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+.game-board.game-active {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.2);
+}
+
+.game-board.game-paused {
+  opacity: 0.8;
+  filter: blur(1px);
+}
+
+/* ==========================================================================
+   Game Overlay Styles
+   ========================================================================== */
+
+.game-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-inverse);
+  z-index: var(--z-tooltip);
+  border-radius: var(--radius-md);
+  animation: fadeIn var(--duration-normal) var(--ease-out);
+}
+
+.overlay-content {
+  text-align: center;
+  padding: var(--space-2xl);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  animation: scaleIn var(--duration-normal) var(--ease-out);
+}
+
+.overlay-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-lg);
+  color: var(--text-inverse);
+}
+
+.overlay-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--text-inverse);
+  margin-bottom: var(--space-xl);
+  opacity: 0.9;
+}
+
+.overlay-button {
+  padding: var(--space-lg) var(--space-2xl);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  background-color: var(--color-primary);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-in-out);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width var(--duration-normal), height var(--duration-normal);
+}
+
+.overlay-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.overlay-button:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.overlay-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-md);
+}
+
+.overlay-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   Instructions Styles
+   ========================================================================== */
+
+.game-instructions {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: var(--space-xl);
+  line-height: var(--line-height-relaxed);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.game-instructions div {
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.instruction-icon {
+  font-size: var(--font-size-base);
+  min-width: 20px;
+}
+
+/* ==========================================================================
+   Modal Styles
+   ========================================================================== */
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  padding: var(--space-xl);
+  animation: fadeIn var(--duration-normal) var(--ease-out);
+}
+
+.modal-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  position: relative;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-xl);
+  animation: scaleIn var(--duration-normal) var(--ease-out);
+}
+
+.modal-close {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-lg);
+  background-color: var(--color-danger);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  z-index: var(--z-tooltip);
+  transition: all var(--duration-normal) var(--ease-in-out);
+  box-shadow: var(--shadow-sm);
+}
+
+.modal-close:hover {
+  background-color: var(--color-accent-dark);
+  transform: scale(1.1);
+  box-shadow: var(--shadow-md);
+}
+
+.modal-close:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.3);
+}
+
+/* ==========================================================================
+   Saved Game Indicator
+   ========================================================================== */
+
+.saved-game-indicator {
+  position: absolute;
+  top: var(--space-lg);
+  left: var(--space-lg);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-xs);
+  background-color: var(--color-success);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-sm);
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+  .control-panel {
+    position: static;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: var(--space-xl);
+    max-width: none;
+    flex-wrap: wrap;
+  }
+  
+  .control-button {
+    min-width: 120px;
+    font-size: var(--font-size-xs);
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .game-stats {
+    gap: var(--space-xl);
+  }
+  
+  .stat-item {
+    min-width: 100px;
+    padding: var(--space-md);
+  }
+  
+  .stat-value {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .game-container {
+    padding: var(--space-lg) var(--space-sm);
+  }
+  
+  .control-panel {
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .control-button {
+    min-width: 100px;
+    font-size: var(--font-size-xs);
+    padding: var(--space-sm);
+    min-height: 44px; /* Touch target size */
+  }
+  
+  .game-stats {
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+  
+  .stat-item {
+    min-width: 80px;
+    padding: var(--space-sm);
+  }
+  
+  .stat-value {
+    font-size: var(--font-size-lg);
+  }
+  
+  .game-board {
+    margin-bottom: var(--space-lg);
+    border-width: 2px;
+  }
+  
+  .overlay-content {
+    padding: var(--space-xl);
+  }
+  
+  .overlay-title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .overlay-subtitle {
+    font-size: var(--font-size-base);
+  }
+  
+  .overlay-button {
+    padding: var(--space-md) var(--space-xl);
+    font-size: var(--font-size-base);
+    min-height: 44px;
+  }
+  
+  .game-instructions {
+    font-size: var(--font-size-xs);
+    margin-top: var(--space-lg);
+  }
+  
+  .modal-backdrop {
+    padding: var(--space-md);
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+  .game-container {
+    padding: var(--space-md) var(--space-sm);
+  }
+  
+  .control-panel {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .control-button {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .game-stats {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  .stat-item {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .game-instructions div {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-xs);
+  }
+}
+
+/* ==========================================================================
+   Accessibility Enhancements
+   ========================================================================== */
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .game-board {
+    border-width: 4px;
+    border-color: var(--text-primary);
+  }
+  
+  .stat-item {
+    border-width: 2px;
+    border-color: var(--text-primary);
+  }
+  
+  .control-button {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .game-overlay,
+  .overlay-content,
+  .modal-backdrop,
+  .modal-content {
+    animation: none;
+  }
+  
+  .control-button::before,
+  .overlay-button::before {
+    display: none;
+  }
+  
+  .control-button:hover,
+  .overlay-button:hover,
+  .stat-item:hover,
+  .modal-close:hover {
+    transform: none;
+  }
+  
+  .speed-boost-icon,
+  .saved-game-indicator {
+    animation: none;
+  }
+}
+
+/* Focus management */
+.game-container:focus-within .control-button:focus {
+  z-index: calc(var(--z-fixed) + 1);
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .game-overlay {
+  backdrop-filter: blur(6px);
+}
+
+[data-theme="dark"] .overlay-content {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .modal-backdrop {
+  backdrop-filter: blur(6px);
+}

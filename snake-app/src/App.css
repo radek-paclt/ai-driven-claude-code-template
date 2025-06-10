@@ -1,0 +1,262 @@
+/* ==========================================================================
+   App Layout & Components
+   ========================================================================== */
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  transition: background-color var(--duration-normal) var(--ease-in-out);
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Theme Toggle Positioning */
+.theme-toggle-container {
+  position: fixed;
+  top: var(--space-xl);
+  right: var(--space-xl);
+  z-index: var(--z-fixed);
+}
+
+/* Header Styles */
+.App-header {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl) var(--space-2xl);
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+  border-bottom: 1px solid var(--border-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.App-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    var(--color-primary) 30.5%,
+    var(--color-primary) 31%,
+    transparent 31.5%
+  ),
+  linear-gradient(
+    -45deg,
+    transparent 30%,
+    var(--color-primary) 30.5%,
+    var(--color-primary) 31%,
+    transparent 31.5%
+  );
+  background-size: 20px 20px;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.game-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.game-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: var(--font-weight-normal);
+  position: relative;
+  z-index: 1;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--space-2xl) var(--space-lg);
+  min-height: 0; /* Allow flex shrinking */
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+  .theme-toggle-container {
+    top: var(--space-lg);
+    right: var(--space-lg);
+  }
+  
+  .App-header {
+    padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+  }
+  
+  .main-content {
+    padding: var(--space-xl) var(--space-md);
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .theme-toggle-container {
+    top: var(--space-md);
+    right: var(--space-md);
+  }
+  
+  .App-header {
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
+  }
+  
+  .game-title {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    margin-bottom: var(--space-sm);
+  }
+  
+  .game-subtitle {
+    font-size: var(--font-size-base);
+  }
+  
+  .main-content {
+    padding: var(--space-lg) var(--space-sm);
+  }
+}
+
+/* Small Mobile Styles */
+@media (max-width: 480px) {
+  .theme-toggle-container {
+    top: var(--space-sm);
+    right: var(--space-sm);
+  }
+  
+  .App-header {
+    padding: var(--space-lg) var(--space-sm);
+  }
+  
+  .game-title {
+    font-size: clamp(1.5rem, 10vw, 2rem);
+  }
+  
+  .game-subtitle {
+    font-size: var(--font-size-sm);
+  }
+  
+  .main-content {
+    padding: var(--space-md) var(--space-sm);
+  }
+}
+
+/* ==========================================================================
+   Animation Enhancements
+   ========================================================================== */
+
+/* Header animation on load */
+.App-header {
+  animation: slideInDown var(--duration-slow) var(--ease-out);
+}
+
+.game-title {
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+.game-subtitle {
+  animation: fadeIn var(--duration-slow) var(--ease-out) 0.4s both;
+}
+
+/* Main content fade in */
+.main-content {
+  animation: fadeIn var(--duration-slow) var(--ease-out) 0.6s both;
+}
+
+/* Theme toggle entrance */
+.theme-toggle-container {
+  animation: slideInDown var(--duration-normal) var(--ease-out) 0.8s both;
+}
+
+/* ==========================================================================
+   Accessibility Enhancements
+   ========================================================================== */
+
+/* Ensure sufficient color contrast */
+@media (prefers-contrast: high) {
+  .game-title {
+    color: var(--text-primary);
+    text-shadow: none;
+  }
+  
+  .App-header::before {
+    opacity: 0;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .App-header,
+  .game-title,
+  .game-subtitle,
+  .main-content,
+  .theme-toggle-container {
+    animation: none;
+  }
+  
+  .App-header::before {
+    background: none;
+  }
+}
+
+/* Focus management for keyboard navigation */
+.App:focus-within .skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Dark theme specific adjustments */
+[data-theme="dark"] .game-title {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .App-header {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+  border-bottom-color: var(--border-primary);
+}
+
+/* ==========================================================================
+   Loading States & Transitions
+   ========================================================================== */
+
+.App {
+  opacity: 1;
+  transition: opacity var(--duration-slow) var(--ease-in-out);
+}
+
+.App.loading {
+  opacity: 0;
+}
+
+/* Component transition wrapper */
+.component-transition {
+  transition: all var(--duration-normal) var(--ease-in-out);
+}
+
+.component-transition.entering {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.component-transition.entered {
+  opacity: 1;
+  transform: translateY(0);
+}
